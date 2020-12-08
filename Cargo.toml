@@ -1,0 +1,15 @@
+[package]
+name = "retrorunner"
+version = "0.1.0"
+authors = ["Auteur <Courriel@nom.domaine.tld"]
+edition = "2018"
+
+[[bin]]
+name = "test"
+path = "main.rs"
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+ggez = "0.5"
+rand = "0.7.3"
+

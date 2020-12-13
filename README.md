@@ -3,7 +3,7 @@ un chemin entre les obstacles .
 
 il faudra :
 
- . pouvoir bouger le vaiseau avec interaction d'une touche
+ . pouvoir bouger le perso avec interaction d'une touche
 
  . creer des obstacles qui nous feront perdre si on les touches
 

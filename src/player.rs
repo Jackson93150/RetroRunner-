@@ -7,17 +7,27 @@ pub struct Player {
     position : Vector2<f32>,
     acceleration : Vector2<f32>,
     speed : Vector2<f32>,
+    turbo_power : Vector2<f32>,
+    movement_left : Vector2<f32>,
+    movement_right : Vector2<f32>,
 }
+
 
 impl Player{
     pub fn new(_context: &mut Context)->GameResult<Self>{
-        let position = Vector2::new(150.0,150.0); // initialisation de la position du joueur / acceleration / speed
+        let position = Vector2::new(250.0,250.0); // initialisation des paramétres du joueur
         let acceleration = Vector2::new(0.0,0.0);
         let speed = Vector2::new(0.0,0.0);
+        let turbo_power = Vector2::new(0.0,-0.015);
+        let movement_left = Vector2::new(-0.004,0.0);
+        let movement_right = Vector2::new(0.004,0.0);
         Ok(Player{
             position,
             acceleration,
             speed,
+            turbo_power,
+            movement_left,
+            movement_right,
         })
     }
 
@@ -35,10 +45,46 @@ impl Player{
         self.acceleration *= 0.0;
     }
     // on fixe des limite pour pas que notre perso sort de l'écran
-    pub fn limite(&mut self,perimetre : f32) {
-        if self.position.y + 75.0 > perimetre {
+    pub fn limite(&mut self,perimetre : f32) { // limite pour le bas de l'écran
+        while self.position.y + 75.0 > perimetre {
             self.position.y = perimetre - 80.0 ; 
             self.speed.y = 0.0;
+            break;
         }
+    }
+    pub fn limite2(&mut self,perimetre : f32) { // limite pour le haut de l'écran
+        while self.position.y - 80.0 < perimetre {
+            self.position.y = perimetre + 80.0 ;
+            self.speed.y = 0.0;
+            break; 
+        }
+    }
+    pub fn limite3(&mut self,perimetre : f32) { // limite pour le coté gauche de l'écran
+        while self.position.x -10.0< perimetre {
+            self.position.x = perimetre + 10.0 ;
+            self.speed.x = 0.0;
+            break; 
+        }
+    }
+    pub fn limite4(&mut self,perimetre : f32) { // limite pour le coté droit de l'écran
+        while self.position.x +50.0 > perimetre {
+            self.position.x = perimetre - 50.0 ;
+            self.speed.x = 0.0;
+            break; 
+        }
+    }
+    // on créer des fonction qui va changer l'impact de la gravité
+    // ce qui va nous permettre de nous deplacer 
+    pub fn fly(&mut self){
+        let turbo_power = self.turbo_power.clone();
+        self.create_gravity(&turbo_power);
+    }
+    pub fn fly_left(&mut self){
+        let movement_left = self.movement_left.clone();
+        self.create_gravity(&movement_left);
+    }
+    pub fn fly_right(&mut self){
+        let movement_right = self.movement_right.clone();
+        self.create_gravity(&movement_right);
     }
 }

@@ -44,10 +44,10 @@ impl Deathstar{
             break;
         }
     }
-    pub fn collision(&self,player:&Player){ // fonction qui va déterminer si le joueur est rentrer en collision avec l'énnemie
+    pub fn collision(&mut self,player:&Player){ // fonction qui va déterminer si le joueur est rentrer en collision avec l'énnemie
         let ploc = player.location(); // (fonction a retravailler pour etres plus précis)
-        if self.position.x >= ploc.x - 30.0 && self.position.x <= ploc.x + 30.0 && self.position.y <= ploc.y + 30.0 && self.position.y >= ploc.y -30.0{
-            println!("me touche pas"); // modifiera cela pour que le resultat arrete le jeu et nous affiche le score + bouton redémarrer
+        if self.position.x >= ploc.x - 40.0 && self.position.x <= ploc.x + 40.0 && self.position.y <= ploc.y + 40.0 && self.position.y >= ploc.y -40.0{
+            println!("zbubzbub");// modifiera cela pour que le resultat arrete le jeu et nous affiche le score + bouton redémarrer
         }
     }
 }

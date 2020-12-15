@@ -8,8 +8,14 @@ mod player;
 use player::Player;
 mod deathstar;
 use deathstar::Deathstar;
+mod background;
+use background::Background;
 
 pub struct MyGame {
+    background : Background,
+    background_img : Image,
+    background2 : Background,
+    background2_img : Image,
     runner: Player,
     player_img : Image,
     deathstar : Deathstar,
@@ -19,12 +25,20 @@ pub struct MyGame {
 
 impl MyGame {
     pub fn new(ctx: &mut Context) -> GameResult<Self> {
+        let background = Background::new(ctx)?;
+        let background_img = Image::new(ctx,"/background.png")?;
+        let background2 = Background::new(ctx)?;
+        let background2_img = Image::new(ctx,"/background.png")?;
         let runner = Player::new(ctx)?;
         let player_img = Image::new(ctx,"/perso.png")?;
         let deathstar = Deathstar::new(ctx)?;
         let deathstar_img = Image::new(ctx,"/ennemie.png")?;
         let gravity = Vector2::new(0.0,0.007); // on défini la force de notre gravité
         Ok(MyGame{
+            background,
+            background_img,
+            background2,
+            background2_img,
             runner,
             player_img,
             deathstar,
@@ -37,7 +51,11 @@ impl MyGame {
 impl EventHandler for MyGame {
     fn update(&mut self, ctx: &mut Context) -> GameResult<()> {
         let (perimetre_x,perimetre_y) = graphics::drawable_size(ctx); // on recupere la taille de l'écran pour les fixer comme limite
-        self.runner.create_gravity(&self.gravity); // on ajoute nos fonction au player/ennemie 
+        self.background.movement(); // on ajoute nos fonction au player/ennemie/background
+        self.background.respawn();
+        self.background2.movement2();
+        self.background2.respawn2();
+        self.runner.create_gravity(&self.gravity); 
         self.runner.setup_gravity();
         self.runner.limite(perimetre_y);
         self.runner.limite2(-100.0);
@@ -60,11 +78,21 @@ impl EventHandler for MyGame {
     }
 
     fn draw(&mut self, ctx: &mut Context) -> GameResult<()> {
-        graphics::clear(ctx, graphics::Color::from_rgb(53, 10, 49)); // couleur du background 
+        graphics::clear(ctx, graphics::Color::from_rgb(7, 8, 17)); // couleur du background 
+        graphics::draw(
+            ctx,
+            &self.background_img,
+            graphics::DrawParam::default().dest(self.background.location()), // on va dessiner notre background a la position défini
+        )?;
+        graphics::draw(
+            ctx,
+            &self.background2_img,
+            graphics::DrawParam::default().dest(self.background2.location2()), // meme pour background2
+        )?;
         graphics::draw(
             ctx,
             &self.player_img,
-            graphics::DrawParam::default().dest(self.runner.location()), // on va dessiner notre perso a la position défini
+            graphics::DrawParam::default().dest(self.runner.location()), // meme pour le perso
         )?;
         graphics::draw( // la meme mais pour l'énnemie
             ctx,

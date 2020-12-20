@@ -4,12 +4,14 @@ use ggez::nalgebra::Vector2;
 
 
 pub struct Player {
-    position : Vector2<f32>,
+    pub position : Vector2<f32>,
     acceleration : Vector2<f32>,
     speed : Vector2<f32>,
     turbo_power : Vector2<f32>,
+    turbo_stop : Vector2<f32>,
     movement_left : Vector2<f32>,
     movement_right : Vector2<f32>,
+    pub life : bool,
 }
 
 
@@ -18,16 +20,20 @@ impl Player{
         let position = Vector2::new(250.0,250.0); // initialisation des paramétres du joueur
         let acceleration = Vector2::new(0.0,0.0);
         let speed = Vector2::new(0.0,0.0);
-        let turbo_power = Vector2::new(0.0,-0.015);
-        let movement_left = Vector2::new(-0.004,0.0);
-        let movement_right = Vector2::new(0.004,0.0);
+        let turbo_power = Vector2::new(0.0,-0.025);
+        let turbo_stop = Vector2::new(0.0,0.015);
+        let movement_left = Vector2::new(-0.008,0.0);
+        let movement_right = Vector2::new(0.008,0.0);
+        let life = true;
         Ok(Player{
             position,
             acceleration,
             speed,
             turbo_power,
+            turbo_stop,
             movement_left,
             movement_right,
+            life,
         })
     }
 
@@ -78,6 +84,10 @@ impl Player{
     pub fn fly(&mut self){
         let turbo_power = self.turbo_power.clone();
         self.create_gravity(&turbo_power);
+    }
+    pub fn stop_fly(&mut self){
+        let turbo_stop = self.turbo_stop.clone();
+        self.create_gravity(&turbo_stop);
     }
     pub fn fly_left(&mut self){
         let movement_left = self.movement_left.clone();

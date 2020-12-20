@@ -5,7 +5,7 @@ il faudra :
 
  . pouvoir bouger le perso avec interaction d'une touche ✓
 
- . creer des ennemies qui pouront nous tuer 
+ . creer des ennemies qui pouront nous tuer ✓
 
  . faire un affichage de score , qui pourra etres stocker et afficher notre meilleur score
 
@@ -21,3 +21,6 @@ si possible :
  . mettre des etoiles qui pouront augmenter le score 
 
 
+Pour compiler :
+cargo run --bin ggez_retrorunner --release
+(sans le --release vous allez perdre des fps)

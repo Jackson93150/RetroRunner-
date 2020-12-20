@@ -12,7 +12,6 @@ pub struct Deathstar{
     movement_left : Vector2<f32>,
 }
 
-
 impl Deathstar{
     pub fn new(_context: &mut Context)->GameResult<Self>{
         let y = rand::thread_rng().gen_range(-100.0, 700.0); // on applique une position en y de facon aléatoire
@@ -39,16 +38,20 @@ impl Deathstar{
     }
     pub fn speed(&mut self){ // augmente la vitesse de l'énnemmie au fur et a mesure du temps
         loop{
-            if self.movement_left.x > - 10.0 {
-                self.movement_left.x += - 0.0002;
+            if self.movement_left.x > - 15.0 {
+                self.movement_left.x += - 0.001;
             }
             break;
         }
     }
-    pub fn collision(&mut self,player:&Player){ // fonction qui va déterminer si le joueur est rentrer en collision avec l'énnemie
+    
+    pub fn collision(&mut self,player:&Player)-> bool{ // fonction qui va déterminer si le joueur est rentrer en collision avec l'énnemie
         let ploc = player.location(); // (fonction a retravailler pour etres plus précis)
-        if self.position.x >= ploc.x - 40.0 && self.position.x <= ploc.x + 40.0 && self.position.y <= ploc.y + 40.0 && self.position.y >= ploc.y -40.0{
-            println!("zbubzbub");// modifiera cela pour que le resultat arrete le jeu et nous affiche le score + bouton redémarrer
+        if self.position.x <= ploc.x && self.position.x >= ploc.x - 185.0 && self.position.y <= ploc.y + 60.0 && self.position.y >= ploc.y - 160.0{
+            return true; // modifiera cela pour que le resultat arrete le jeu et nous affiche le score + bouton redémarrer
+        }
+        else {
+            return false;
         }
     }
 }

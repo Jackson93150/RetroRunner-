@@ -15,7 +15,7 @@ impl Background{
     pub fn new(_context: &mut Context)->GameResult<Self>{
         let position = Vector2::new(0.0,0.0); // position du 1er background
         let position2 = Vector2::new(2560.0,0.0); // position du 2eme background
-        let movement_left = Vector2::new(-0.09,0.0); // vitesse a laquelle le background va se deplacer 
+        let movement_left = Vector2::new(-1.0,0.0); // vitesse a laquelle le background va se deplacer 
         Ok(Background{
             position,
             position2,

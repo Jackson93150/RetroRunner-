@@ -73,9 +73,17 @@ impl MyGame {
         let fps = (timer::fps(ctx)).round();
         let mut fps_render = Text::new(format!("FPS: {}",fps));
         fps_render.set_font(fps_font,Scale::uniform(24.0));
-
         graphics::draw(ctx, &fps_render,graphics::DrawParam::default().dest(Point2::new(5.0,5.0)))
     }
+     
+    fn show_score(&self,ctx: &mut Context)-> GameResult <()> {
+        let score_font = Font::new(ctx, "/rainyhearts.ttf")?;
+        let mut score_render = Text::new(format!("{}",self.deathstar.score + self.deathstar2.score + self.deathstar3.score));
+        score_render.set_font(score_font,Scale::uniform(50.0));
+
+        graphics::draw(ctx, &score_render,graphics::DrawParam::default().dest(Point2::new(700.0,5.0)))
+    }
+
 }
 
 impl EventHandler for MyGame {
@@ -165,6 +173,7 @@ impl EventHandler for MyGame {
 
         Ok(())
     }
+    
 
 
     fn draw(&mut self, ctx: &mut Context) -> GameResult<()> {
@@ -205,6 +214,7 @@ impl EventHandler for MyGame {
             graphics::DrawParam::default().dest(self.health_bar.location()).scale(Vector2::new(0.8, 0.5)),
         )?;
         self.show_fps(ctx)?; // on affiche les fps
+        self.show_score(ctx)?;
         graphics::present(ctx)
     }
 

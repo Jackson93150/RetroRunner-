@@ -10,6 +10,7 @@ use super::player::Player;
 pub struct Deathstar{
     pub position : Vector2<f32>,
     movement_left : Vector2<f32>,
+    pub score : i32,
 }
 
 impl Deathstar{
@@ -17,9 +18,11 @@ impl Deathstar{
         let y = rand::thread_rng().gen_range(-100.0, 700.0); // on applique une position en y de facon aléatoire
         let position = Vector2::new(1400.0,y); // et on fixe la position initial de sorte que l'ennemie apparait en dehors de l'écran
         let movement_left = Vector2::new(-0.25,0.0); // vitesse a laquelle l'ennemie va se deplacer 
+        let score = 0;
         Ok(Deathstar{
             position,
             movement_left,
+            score,
         })
     }
 
@@ -33,6 +36,7 @@ impl Deathstar{
     pub fn respawn(&mut self){ // fonction qui va permettre de faire réappaitre l'énnemie apres qu'il soit sortie de l'écran
         let y = rand::thread_rng().gen_range(-100.0, 700.0);
         if self.position.x < -200.0{
+            self.score = self.score + 1;
             self.position = Vector2::new(1450.0,y);
         }
     }

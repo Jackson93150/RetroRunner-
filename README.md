@@ -7,12 +7,13 @@ il faudra :
 
  . creer des ennemies qui pouront nous tuer ✓
 
- . faire un affichage de score , qui pourra etres stocker et afficher notre meilleur score
+ . faire un affichage de score , qui pourra etres stocker et afficher notre meilleur score ~
 
  . rajouter de la music au jeu
 
  . faire un bouton play pour lancer le jeu
-
+ 
+ . optimiser le code 
 
 si possible :
 

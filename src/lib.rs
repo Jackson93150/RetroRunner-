@@ -43,7 +43,6 @@ pub struct MyGame {
     sound2: audio::Source,
     sound3: audio::Source,
     music: audio::Source,
-    x : i32,
 }
 
 impl MyGame {
@@ -68,7 +67,6 @@ impl MyGame {
         let sound2 = audio::Source::new(ctx, "/SKRAAA.wav")?;
         let sound3 = audio::Source::new(ctx, "/SKYAA.wav")?;
         let music = audio::Source::new(ctx, "/fond.ogg")?;
-        let x = 0;
         Ok(MyGame{
             background,
             background_img,
@@ -90,7 +88,6 @@ impl MyGame {
             sound2,
             sound3,
             music,
-            x,
         })
     }
     // fonction qui va nous afficher les fps dans un coin de notre écran
@@ -310,14 +307,12 @@ impl EventHandler for MyGame {
                 self.show_restart(ctx)?; // affichage restart
             },
         }
-        if self.x == 0 {
+        if self.music.playing() == false {
             self.music.play().unwrap();
-            self.x = 1;
         }
         self.show_fps(ctx)?; // on affiche les fps
         graphics::present(ctx)
     }
 
 }
-
 

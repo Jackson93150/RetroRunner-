@@ -1,12 +1,12 @@
 use ggez::event::run;
-use ggez::conf::{WindowMode, WindowSetup};
+use ggez::conf::{WindowMode, WindowSetup , FullscreenType};
 use ggez::ContextBuilder;
 use retrorunner::MyGame;
 use std::path;
 
 fn main() {
-    let window_mode = WindowMode::default().dimensions(1400.0, 800.0);
-    let window_setup = WindowSetup::default().title("Retrorunner2077");
+    let window_mode = WindowMode::default().dimensions(1400.0, 800.0).fullscreen_type(FullscreenType::Windowed);
+    let window_setup = WindowSetup::default().title("Retrorunner2077").vsync(false);
     let resources_path = path::PathBuf::from("./resources");
     let (mut context, mut event_loop) = ContextBuilder::new("Retrorunner", "Jacku")
         .window_mode(window_mode)

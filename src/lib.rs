@@ -111,6 +111,7 @@ impl MyGame {
 
 impl EventHandler for MyGame {
     fn update(&mut self, ctx: &mut Context) -> GameResult<()> {
+        ggez::timer::check_update_time(ctx, 100);
         match self.game{
             GameState::Start => { // si une des fleche directionelle est appuyer on passe en mode playing
                 self.runner.position = Vector2::new(250.0,250.0);

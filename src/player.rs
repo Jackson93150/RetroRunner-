@@ -22,8 +22,8 @@ impl Player{
         let speed = Vector2::new(0.0,0.0);
         let turbo_power = Vector2::new(0.0,-0.025);
         let turbo_stop = Vector2::new(0.0,0.015);
-        let movement_left = Vector2::new(-0.008,0.0);
-        let movement_right = Vector2::new(0.008,0.0);
+        let movement_left = Vector2::new(-0.007,0.0);
+        let movement_right = Vector2::new(0.007,0.0);
         let life = true;
         Ok(Player{
             position,

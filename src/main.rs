@@ -22,3 +22,4 @@ fn main() {
         Err(e) => println!("Error occured: {}", e),
     }
 }
+

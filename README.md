@@ -9,7 +9,7 @@ il faudra :
 
  . faire un affichage de score ✓
 
- . rajouter de la music au jeu
+ . rajouter de la music au jeu ✓
 
  . faire un bouton play pour lancer le jeu ✓
  

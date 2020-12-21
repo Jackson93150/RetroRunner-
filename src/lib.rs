@@ -1,5 +1,7 @@
 use ggez::{Context,GameResult,graphics,timer};
 use ggez::graphics::{Image,Font,Scale,Text};
+use ggez::audio;
+use ggez::audio::SoundSource;
 use ggez::event::{EventHandler,KeyCode};
 use ggez::nalgebra::{Vector2,Point2};
 use ggez::input::keyboard;
@@ -37,6 +39,11 @@ pub struct MyGame {
     health_bar : Health,
     health_bar_img : Image,
     game : GameState,
+    sound: audio::Source,
+    sound2: audio::Source,
+    sound3: audio::Source,
+    music: audio::Source,
+    x : i32,
 }
 
 impl MyGame {
@@ -57,6 +64,11 @@ impl MyGame {
         let health_bar = Health::new(ctx)?;
         let health_bar_img = Image::new(ctx,"/barre1.png")?;
         let game = GameState::Start; // on initialise l'état du jeu au start
+        let sound = audio::Source::new(ctx, "/BOOM.wav")?;
+        let sound2 = audio::Source::new(ctx, "/SKRAAA.wav")?;
+        let sound3 = audio::Source::new(ctx, "/SKYAA.wav")?;
+        let music = audio::Source::new(ctx, "/fond.ogg")?;
+        let x = 0;
         Ok(MyGame{
             background,
             background_img,
@@ -74,6 +86,11 @@ impl MyGame {
             health_bar,
             health_bar_img,
             game,
+            sound,
+            sound2,
+            sound3,
+            music,
+            x,
         })
     }
     // fonction qui va nous afficher les fps dans un coin de notre écran
@@ -106,12 +123,10 @@ impl MyGame {
         graphics::draw(ctx, &restart_img,graphics::DrawParam::default().dest(Point2::new(350.0,200.0)))?;
         graphics::draw(ctx, &score_render,graphics::DrawParam::default().dest(Point2::new(680.0,300.0)))
     }
-
 }
 
 impl EventHandler for MyGame {
     fn update(&mut self, ctx: &mut Context) -> GameResult<()> {
-        ggez::timer::check_update_time(ctx, 100);
         match self.game{
             GameState::Start => { // si une des fleche directionelle est appuyer on passe en mode playing
                 self.runner.position = Vector2::new(250.0,250.0);
@@ -120,6 +135,7 @@ impl EventHandler for MyGame {
                 } 
             },
             GameState::Playing =>{
+                ggez::timer::check_update_time(ctx, 120);
                 self.background.movement(); // on ajoute nos fonction au player/ennemie/background
                 self.background.respawn();
                 self.background2.movement2();
@@ -143,9 +159,19 @@ impl EventHandler for MyGame {
                 self.deathstar3.collision(&self.runner);
                 self.deathstar3.respawn();
 
+
                 // regarde si il y'a une collision avec un des 3 deathstar
                 if (self.deathstar.collision(&self.runner) || self.deathstar2.collision(&self.runner) || self.deathstar3.collision(&self.runner)) == true{
                     if self.runner.life == true { // si la vie du runner est dans l'etat true 
+                        if self.deathstar.collision(&self.runner) == true{
+                            self.sound.play().unwrap();
+                        }
+                        if self.deathstar2.collision(&self.runner) == true{
+                            self.sound2.play().unwrap();
+                        }
+                        if self.deathstar3.collision(&self.runner) == true{
+                            self.sound3.play().unwrap();
+                        }
                         self.health_bar.health = self.health_bar.health - 1; // on enleve 1 point de vie
                         self.runner.life = false; // et on met la vie du runner dans l'état false pour le rendre invulnérable
                     }
@@ -178,8 +204,14 @@ impl EventHandler for MyGame {
                     }
                 }
                 // on positione la deuxieme deathstar pour qu'elle apparaissent apres un certain temps
-                self.deathstar2.position.x = 5500.0; 
-                self.deathstar3.position.x = 8500.0;// pareille
+                if self.deathstar2.position.x == self.deathstar.position.x{ 
+                    self.deathstar2.position.x = 5500.0;
+                }
+
+                if self.deathstar3.position.x == self.deathstar.position.x{ // pareille
+                    self.deathstar3.position.x = 8500.0;
+                }
+
                 // on assigie nos fonction de déplacement au touche du clavier
                 if keyboard::is_key_pressed(ctx,KeyCode::Up){ 
                     self.runner.fly();
@@ -277,6 +309,10 @@ impl EventHandler for MyGame {
             GameState::GameOver => {
                 self.show_restart(ctx)?; // affichage restart
             },
+        }
+        if self.x == 0 {
+            self.music.play().unwrap();
+            self.x = 1;
         }
         self.show_fps(ctx)?; // on affiche les fps
         graphics::present(ctx)

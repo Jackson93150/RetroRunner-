@@ -120,17 +120,16 @@ impl EventHandler for MyGame {
                 } 
             },
             GameState::Playing =>{
-                let (perimetre_x,perimetre_y) = graphics::drawable_size(ctx); // on recupere la taille de l'écran pour les fixer comme limite
                 self.background.movement(); // on ajoute nos fonction au player/ennemie/background
                 self.background.respawn();
                 self.background2.movement2();
                 self.background2.respawn2();
                 self.runner.create_gravity(&self.gravity); 
                 self.runner.setup_gravity();
-                self.runner.limite(perimetre_y);
+                self.runner.limite(800.0);
                 self.runner.limite2(-100.0);
                 self.runner.limite3(-20.0); 
-                self.runner.limite4(perimetre_x);
+                self.runner.limite4(1400.0);
                 self.deathstar.movement();
                 self.deathstar.speed();
                 self.deathstar.collision(&self.runner);

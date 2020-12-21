@@ -5,7 +5,7 @@ use retrorunner::MyGame;
 use std::path;
 
 fn main() {
-    let window_mode = WindowMode::default().dimensions(1400.0, 800.0).fullscreen_type(FullscreenType::Windowed);
+    let window_mode = WindowMode::default().dimensions(1400.0, 800.0).fullscreen_type(FullscreenType::True);
     let window_setup = WindowSetup::default().title("Retrorunner2077").vsync(false);
     let resources_path = path::PathBuf::from("./resources");
     let (mut context, mut event_loop) = ContextBuilder::new("Retrorunner", "Jacku")

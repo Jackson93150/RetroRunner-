@@ -6,7 +6,7 @@ use ggez::nalgebra::Vector2;
 pub struct Player {
     pub position : Vector2<f32>,
     acceleration : Vector2<f32>,
-    speed : Vector2<f32>,
+    pub speed : Vector2<f32>,
     turbo_power : Vector2<f32>,
     turbo_stop : Vector2<f32>,
     movement_left : Vector2<f32>,

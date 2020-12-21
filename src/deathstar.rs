@@ -58,4 +58,11 @@ impl Deathstar{
             return false;
         }
     }
+    pub fn reset(&mut self){
+        let y = rand::thread_rng().gen_range(-100.0, 700.0); 
+        self.position = Vector2::new(1400.0,y);
+        self.movement_left = Vector2::new(-0.25,0.0);
+        self.score = 0;
+    }
 }
+

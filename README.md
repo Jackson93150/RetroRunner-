@@ -7,11 +7,11 @@ il faudra :
 
  . creer des ennemies qui pouront nous tuer ✓
 
- . faire un affichage de score , qui pourra etres stocker et afficher notre meilleur score ~
+ . faire un affichage de score ✓
 
  . rajouter de la music au jeu
 
- . faire un bouton play pour lancer le jeu
+ . faire un bouton play pour lancer le jeu ✓
  
  . optimiser le code 
 
@@ -21,7 +21,9 @@ si possible :
 
  . mettre des etoiles qui pouront augmenter le score 
 
+ . stocker le meilleur score meme si on éteint le jeu
+
 
 Pour compiler :
-cargo run --bin ggez_retrorunner --release
+cargo run --release
 (sans le --release vous allez perdre des fps)

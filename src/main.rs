@@ -1,10 +1,8 @@
-//extern crate ggez_retrorunner;
 use ggez::event::run;
 use ggez::conf::{WindowMode, WindowSetup};
 use ggez::ContextBuilder;
-use ggez_retrorunner::MyGame;
+use retrorunner::MyGame;
 use std::path;
-
 
 fn main() {
     let window_mode = WindowMode::default().dimensions(1400.0, 800.0);

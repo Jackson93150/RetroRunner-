@@ -13,15 +13,15 @@ il faudra :
 
  . faire un bouton play pour lancer le jeu ✓
  
- . optimiser le code ~
+ . optimiser le code (on va dire que oui ) ✓
 
 si possible :
 
  . le perso pourra tirer pour abattre les ennemies ✓
 
- . mettre des etoiles qui pouront augmenter le score 
+ . mettre des etoiles qui pouront augmenter le score  ✓ 
 
- . stocker le meilleur score meme si on éteint le jeu
+ . stocker le meilleur score meme si on éteint le jeu (un peu la flemme du coup)
 
 
 Pour compiler :

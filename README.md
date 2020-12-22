@@ -13,11 +13,11 @@ il faudra :
 
  . faire un bouton play pour lancer le jeu ✓
  
- . optimiser le code 
+ . optimiser le code ~
 
 si possible :
 
- . le perso pourra tirer pour abattre les ennemies
+ . le perso pourra tirer pour abattre les ennemies ✓
 
  . mettre des etoiles qui pouront augmenter le score 
 

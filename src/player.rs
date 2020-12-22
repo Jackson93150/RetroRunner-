@@ -82,19 +82,23 @@ impl Player{
     // on créer des fonction qui va changer l'impact de la gravité
     // ce qui va nous permettre de nous deplacer 
     pub fn fly(&mut self){
-        let turbo_power = self.turbo_power.clone();
+        let turbo_power = self.turbo_power;
         self.create_gravity(&turbo_power);
     }
     pub fn stop_fly(&mut self){
-        let turbo_stop = self.turbo_stop.clone();
+        let turbo_stop = self.turbo_stop;
         self.create_gravity(&turbo_stop);
     }
     pub fn fly_left(&mut self){
-        let movement_left = self.movement_left.clone();
+        let movement_left = self.movement_left;
         self.create_gravity(&movement_left);
     }
     pub fn fly_right(&mut self){
-        let movement_right = self.movement_right.clone();
+        let movement_right = self.movement_right;
         self.create_gravity(&movement_right);
+    }
+    pub fn reset(&mut self) {
+        self.position = Vector2::new(250.0,250.0);
+        self.speed = Vector2::new(0.0,0.0);
     }
 }

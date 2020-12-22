@@ -15,6 +15,8 @@ mod background;
 use background::Background;
 mod health_bar;
 use health_bar::Health;
+mod tir;
+use tir::Tir;
 
 pub enum GameState { // Structure pour déterminer l'état du jeu
     Start,
@@ -42,7 +44,10 @@ pub struct MyGame {
     sound: audio::Source,
     sound2: audio::Source,
     sound3: audio::Source,
+    sound4: audio::Source,
     music: audio::Source,
+    tir : Tir,
+    tir_img : Image,
 }
 
 impl MyGame {
@@ -66,7 +71,10 @@ impl MyGame {
         let sound = audio::Source::new(ctx, "/BOOM.wav")?;
         let sound2 = audio::Source::new(ctx, "/SKRAAA.wav")?;
         let sound3 = audio::Source::new(ctx, "/SKYAA.wav")?;
+        let sound4 = audio::Source::new(ctx, "/poom.ogg")?;
         let music = audio::Source::new(ctx, "/fond.ogg")?;
+        let tir = Tir::new(ctx)?;
+        let tir_img = Image::new(ctx,"/tir.png")?;
         Ok(MyGame{
             background,
             background_img,
@@ -87,7 +95,10 @@ impl MyGame {
             sound,
             sound2,
             sound3,
+            sound4,
             music,
+            tir,
+            tir_img,
         })
     }
     // fonction qui va nous afficher les fps dans un coin de notre écran
@@ -135,8 +146,8 @@ impl EventHandler for MyGame {
                 ggez::timer::check_update_time(ctx, 120);
                 self.background.movement(); // on ajoute nos fonction au player/ennemie/background
                 self.background.respawn();
-                self.background2.movement2();
-                self.background2.respawn2();
+                self.background2.movement();
+                self.background2.respawn();
                 self.runner.create_gravity(&self.gravity); 
                 self.runner.setup_gravity();
                 self.runner.limite(800.0);
@@ -147,15 +158,36 @@ impl EventHandler for MyGame {
                 self.deathstar.speed();
                 self.deathstar.collision(&self.runner);
                 self.deathstar.respawn();
+                self.deathstar.tir_hit(&self.tir);
                 self.deathstar2.movement();
                 self.deathstar2.speed();
                 self.deathstar2.collision(&self.runner);
                 self.deathstar2.respawn();
+                self.deathstar2.tir_hit(&self.tir);
                 self.deathstar3.movement();
                 self.deathstar3.speed();
                 self.deathstar3.collision(&self.runner);
                 self.deathstar3.respawn();
+                self.deathstar3.tir_hit(&self.tir);
+                self.tir.movement();
+                self.tir.respawn();
 
+                if self.tir.state == false {
+                    self.tir.position.x = self.runner.position.x + 10.0;
+                    self.tir.position.y = self.runner.position.y + 35.0;
+                }
+
+                if keyboard::is_key_pressed(ctx,KeyCode::Space){
+                    if self.tir.state == false{
+                        if self.sound4.playing() == false {
+                            self.sound4.play().unwrap();
+                            self.tir.state = true;
+                        }
+                    }
+                }
+                if (self.deathstar.state || self.deathstar2.state || self.deathstar3.state) == true{
+                    self.tir.state = false;
+                }
 
                 // regarde si il y'a une collision avec un des 3 deathstar
                 if (self.deathstar.collision(&self.runner) || self.deathstar2.collision(&self.runner) || self.deathstar3.collision(&self.runner)) == true{
@@ -200,6 +232,10 @@ impl EventHandler for MyGame {
                         self.deathstar3.position.y = rand::thread_rng().gen_range(-100.0, 700.0);
                     }
                 }
+                if self.background2.position.x == self.background.position.x{ 
+                    self.background2.position.x = 2560.0;
+                }
+
                 // on positione la deuxieme deathstar pour qu'elle apparaissent apres un certain temps
                 if self.deathstar2.position.x == self.deathstar.position.x{ 
                     self.deathstar2.position.x = 5500.0;
@@ -236,8 +272,7 @@ impl EventHandler for MyGame {
                     self.deathstar.score = 0;
                     self.deathstar2.score = 0;
                     self.deathstar3.score = 0;
-                    self.runner.position = Vector2::new(250.0,250.0);
-                    self.runner.speed = Vector2::new(0.0,0.0);
+                    self.runner.reset();
                     self.health_bar.health = 3;
                     self.health_bar_img = Image::new(ctx,"/barre1.png")?;
                     self.game = GameState::Playing;
@@ -247,7 +282,6 @@ impl EventHandler for MyGame {
         Ok(())
     }
     
-
 
     fn draw(&mut self, ctx: &mut Context) -> GameResult<()> {
         graphics::clear(ctx, graphics::Color::from_rgb(7, 8, 17)); // couleur du background 
@@ -274,7 +308,12 @@ impl EventHandler for MyGame {
                 graphics::draw(
                     ctx,
                     &self.background2_img,
-                    graphics::DrawParam::default().dest(self.background2.location2()), // meme pour background2
+                    graphics::DrawParam::default().dest(self.background2.location()), // meme pour background2
+                )?;
+                graphics::draw( 
+                    ctx,
+                    &self.tir_img,
+                    graphics::DrawParam::default().dest(self.tir.location()),
                 )?;
                 graphics::draw(
                     ctx,
@@ -307,12 +346,10 @@ impl EventHandler for MyGame {
                 self.show_restart(ctx)?; // affichage restart
             },
         }
-        if self.music.playing() == false {
+        if self.music.playing() == false { // si la music de fond et terminer la releance
             self.music.play().unwrap();
         }
         self.show_fps(ctx)?; // on affiche les fps
         graphics::present(ctx)
     }
-
 }
-

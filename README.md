@@ -19,7 +19,7 @@ si possible :
 
  . le perso pourra tirer pour abattre les ennemies ✓
 
- . mettre des etoiles qui pouront augmenter le score  ✓ 
+ . mettre des bonus qui pouront augmenter le score  ✓ 
 
  . stocker le meilleur score meme si on éteint le jeu (un peu la flemme du coup)
 
@@ -27,3 +27,5 @@ si possible :
 Pour compiler :
 cargo run --release
 (sans le --release vous allez perdre des fps)
+
+ANTHONIPILLAI JACKSON 19002768

@@ -29,3 +29,5 @@ cargo run --release
 (sans le --release vous allez perdre des fps)
 
 ANTHONIPILLAI JACKSON 19002768
+
+(P.S inspiré des tutos de Brooks Builds)

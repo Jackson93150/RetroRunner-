@@ -1,33 +1,33 @@
-Mon projet en rust consistera a créer un jeu 2d de type endless runner ou l'on incarnera un soldat du futur qui devra se frayer
+# RetroRunner
+
+Auteur: ANTHONIPILLAI JACKSON 19002768
+
+Mon projet en rust consistera a créer un jeu 2d de type endless runner,
+ou l'on incarnera un soldat du futur qui devra se frayer
 un chemin entre les obstacles .
 
-il faudra :
+## Objectifs
 
- . pouvoir bouger le perso avec interaction d'une touche ✓
+Il faudra :
 
- . creer des ennemies qui pouront nous tuer ✓
+- [x] Pouvoir bouger le perso avec interaction d'une touche
+- [x] Creer des ennemies qui pouront nous tuer
+- [x] Faire un affichage de score
+- [x] Rajouter de la music au jeu
+- [x] Faire un bouton play pour lancer le jeu
+- [x] Optimiser le code (on va dire que oui )
 
- . faire un affichage de score ✓
-
- . rajouter de la music au jeu ✓
-
- . faire un bouton play pour lancer le jeu ✓
- 
- . optimiser le code (on va dire que oui ) ✓
-
-si possible :
-
- . le perso pourra tirer pour abattre les ennemies ✓
-
- . mettre des bonus qui pouront augmenter le score  ✓ 
-
- . stocker le meilleur score meme si on éteint le jeu (un peu la flemme du coup)
+Si possible :
 
 
 Pour compiler :
+
+```bash
 cargo run --release
 (sans le --release vous allez perdre des fps)
+```
 
-ANTHONIPILLAI JACKSON 19002768
+## Inspirations
 
-(P.S inspiré des tutos de Brooks Builds)
+Inspiré des tutos de Brooks Builds [chaine youtube](https://www.youtube.com/channel/UCT1-XRVnJA-wws2bfbLbFcQ)
+et [github](https://github.com/brooks-builds).

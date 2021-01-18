@@ -27,6 +27,15 @@ cargo run --release
 
 Si vous tentez de jouer sans `--release` les performances seront pas terribles.
 
+### Troobleshooting
+
+Si vous rencontrez un problème avec `XInit` et Rust en version récente compiler
+et executer avec:
+
+```bash
+rustup run 1.47-x86_64-unknown-linux-gnu cargo run --release
+```
+
 ## Inspirations
 
 Inspiré des tutos de Brooks Builds [chaine youtube](https://www.youtube.com/channel/UCT1-XRVnJA-wws2bfbLbFcQ)

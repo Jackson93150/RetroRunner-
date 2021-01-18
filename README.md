@@ -19,13 +19,13 @@ Il faudra :
 
 Si possible :
 
-
-Pour compiler :
+## Compilation
 
 ```bash
 cargo run --release
-(sans le --release vous allez perdre des fps)
 ```
+
+Si vous tentez de jouer sans `--release` les performances seront pas terribles.
 
 ## Inspirations
 

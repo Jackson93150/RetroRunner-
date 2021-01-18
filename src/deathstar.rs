@@ -60,19 +60,18 @@ impl Deathstar {
         }
     }
 
+    // TODO: en cas de collision:
+    // Arrete le jeu et nous affiche le score + bouton redémarrer
     pub fn collision(&mut self, player: &Player) -> bool {
         // fonction qui va déterminer si le joueur est rentrer en collision avec l'énnemie
         let ploc = player.location(); // (fonction a retravailler pour etres plus précis)
-        if self.position.x <= ploc.x
+
+        self.position.x <= ploc.x
             && self.position.x >= ploc.x - 185.0
             && self.position.y <= ploc.y + 60.0
             && self.position.y >= ploc.y - 160.0
-        {
-            return true; // modifiera cela pour que le resultat arrete le jeu et nous affiche le score + bouton redémarrer
-        } else {
-            return false;
-        }
     }
+
     pub fn tir_hit(&mut self, tir: &Tir) {
         // fonction pour savoir si le tir à toucher les deathstar
         let tirs = tir.state;
